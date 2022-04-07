@@ -1,4 +1,4 @@
-package com.zp.leetcode;
+package com.zp.leetcode.package_20220407;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Map;
  * @date 2022-04-07 09:30
  * 罗马数字转换为数字
  **/
-public class RomanToInt_20220407 {
+public class RomanToInt {
 
 
 
@@ -23,7 +23,6 @@ public class RomanToInt_20220407 {
             put('D', 500);
             put('M', 1000);
         }};
-
 
 
         /**
