@@ -17,10 +17,24 @@ public class ParadigmArray {
         //declarationMethod();
 
         // 返回泛型数组
-        Integer array[] = fun1(1,2,3,4,5,6) ;
-        fun2(array) ;
+//        Integer array[] = fun1(1,2,3,4,5,6) ;
+//        fun2(array) ;
+
+        //oracleDemo();
 
     }
+
+    /*
+    private static void oracleDemo() {
+        List<String>[] lsa = new List<String>[10];// Not really allowed
+        Object o = lsa;
+        Object[] oa = (Object[]) o;
+        List<Integer> li = new ArrayList<Integer>();
+        li.add(new Integer(3));
+        oa[1] = li;//Unsound,but passes run time store check
+        String s = lsa[1].get(0);// Run-time error ClassCastException
+    }
+     */
 
 
     // 接收可变参数
