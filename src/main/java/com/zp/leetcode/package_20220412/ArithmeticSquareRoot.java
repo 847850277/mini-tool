@@ -24,6 +24,7 @@ public class ArithmeticSquareRoot {
         // 在区间 [left..right] 查找目标元素
         while (left < right){
             int mid = left + (right - left + 1) / 2;
+            System.out.println(String.format("当前的值{%s},{%s},{%s}",left,mid,right));
             //进入下次查找的条件
             if(mid > x / mid){
                 //下一轮搜索区间
@@ -32,6 +33,7 @@ public class ArithmeticSquareRoot {
                 //下一轮搜索区间
                 left = mid;
             }
+            System.out.println(String.format("后的的值{%s},{%s},{%s}",left,mid,right));
         }
         return left;
     }
@@ -40,7 +42,9 @@ public class ArithmeticSquareRoot {
     public static void main(String[] args) {
         ArithmeticSquareRoot squareRoot = new ArithmeticSquareRoot();
         //System.out.println(squareRoot.mySqrt(8));
-        System.out.println(squareRoot.mySqrt(100));
+        //System.out.println(squareRoot.mySqrt(100));
+        //System.out.println(squareRoot.mySqrt(99));
+        System.out.println(squareRoot.mySqrt(1024));
 
 
     }
