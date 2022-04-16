@@ -51,7 +51,7 @@ public class MergeTwoArray {
 
 
     /**
-     *
+     * 拷贝数组用系统拷贝方法
      * @param nums1
      * @param m
      * @param nums2
@@ -60,45 +60,55 @@ public class MergeTwoArray {
     @SuppressWarnings("Duplicates")
     public void merge(int[] nums1, int m, int[] nums2, int n) {
 
+        int length = m + n;
+
         //特殊场景
         if (m == 0){
-            nums1 = new int[n];
-            for (int i = 0; i < n; i++) {
-                nums1[i] = nums2[i];
-            }
+            //力扣需要注释该行，本地调试没有该行会报错
+            nums1 = new int[length];
+            System.arraycopy(nums2,0,nums1,0,length);
             return;
         }
         if(n == 0){
             return;
         }
 
-
-
-        int length = m + n;
+        int[] result = new int[length];
         int left = 0;
         int right = 0;
         int index = 0;
         while (index < length){
-            if(left < m && nums1[left] < nums2[right]){
-                nums1[index] = nums1[left];
+            //边界情况
+            if(right == n){
+                result[index] = nums1[left];
+                left++;
+                index++;
+            //边界情况
+            }else if(left == m){
+                result[index] = nums2[right];
+                right++;
+                index++;
+            }else if(nums1[left] < nums2[right]){
+                result[index] = nums1[left];
                 left++;
                 index++;
             }else {
-                nums1[index] = nums2[right];
+                result[index] = nums2[right];
                 right++;
                 index++;
             }
         }
         //重新赋值
+        System.arraycopy(result,0,nums1,0,length);
         return;
 
     }
 
     public static void main(String[] args) {
-        int[] nums1 = new int[]{1,2,3,0,0,0};
-        int m = 3;
-        int[] nums2 = new int[]{2,5,6};
-        int n = 3;
+//        int[] nums1 = new int[]{1,2,3,0,0,0};
+//        int m = 3;
+//        int[] nums2 = new int[]{2,5,6};
+//        int n = 3;
 
 
 //        int[] nums1 = new int[]{1};
@@ -106,10 +116,10 @@ public class MergeTwoArray {
 //        int[] nums2 = new int[]{};
 //        int n = 0;
 
-//        int[] nums1 = new int[]{};
-//        int m = 0;
-//        int[] nums2 = new int[]{1};
-//        int n = 1;
+        int[] nums1 = new int[]{2,0};
+        int m = 1;
+        int[] nums2 = new int[]{1};
+        int n = 1;
 
         MergeTwoArray mergeTwoArray = new MergeTwoArray();
         mergeTwoArray.merge(nums1,m,nums2,n);
