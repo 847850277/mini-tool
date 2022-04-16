@@ -1,6 +1,11 @@
 package com.zp.leetcode.package_20220414;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author zhengpeng
@@ -11,15 +16,31 @@ public class RemoveDuplicates {
 
 
     public ListNode deleteDuplicates(ListNode head) {
-        ListNode cur = head;
-        while(cur != null && cur.next != null) {
-            if(cur.val == cur.next.val) {
-                cur.next = cur.next.next;
-            } else {
-                cur = cur.next;
-            }
+        Map<Integer,Integer> map = new HashMap<>();
+        ListNode pointer = head;
+        ListNode pre = null;
+        while (pointer.next != null){
+//            if(map.containsKey(pointer.val)){
+//                //指向下下一个节点
+//                pointer = pointer.next.next ;
+//            }else {
+//                map.put(pointer.val,pointer.val);
+//                //结尾特殊情况处理
+//                if(Objects.isNull(pointer.next) && map.containsKey(pointer.next.val)){
+//                    pointer.next = null;
+//                }else {
+//                    //链表后移动
+//                    pointer = pointer.next;
+//                }
+//
+//            }
+
+            pointer = pointer.next;
+
+
+
         }
-        return head;
+        return pre;
     }
 
     /*
