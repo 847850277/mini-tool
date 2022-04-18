@@ -1,11 +1,9 @@
-package com.zp.leetcode.package_20220414;
+package com.zp.leetcode.package_2022.april0414;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author zhengpeng
