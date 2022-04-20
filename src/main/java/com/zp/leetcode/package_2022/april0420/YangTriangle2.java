@@ -1,25 +1,24 @@
-package com.zp.leetcode.package_2022.april0419;
+package com.zp.leetcode.package_2022.april0420;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author zhengpeng
- * @date 2022-04-18 16:42
- * 杨辉三角一
+ * @date 2022-04-19 10:07
+ * 杨辉三角二
  **/
-public class YangTriangle {
-
+public class YangTriangle2 {
 
     @SuppressWarnings("Duplicates")
-    public List<List<Integer>> generate(int numRows) {
+    public List<Integer> getRow(int rowIndex) {
+
+        int numRows = rowIndex + 1;
 
         if(numRows == 1){
-            ArrayList<List<Integer>> result = new ArrayList<List<Integer>>(1);
             List<Integer> items = new ArrayList<>();
             items.add(1);
-            result.add(items);
-            return result;
+            return items;
         }else {
             List<int[]> list = initList(numRows);
             List<List<Integer>> result = new ArrayList<>(numRows);
@@ -40,10 +39,9 @@ public class YangTriangle {
                     result.add(items);
                 }
             }
-            return result;
+            return result.get(rowIndex);
         }
     }
-
 
     @SuppressWarnings("Duplicates")
     private List<Integer> buildItems(int[] ints, int i, int[] preInts) {
@@ -76,14 +74,18 @@ public class YangTriangle {
         return  list;
     }
 
+
     public static void main(String[] args) {
 
-        YangTriangle yang = new YangTriangle();
-        //System.out.println(yang.generate(1));
-        //System.out.println(yang.generate(30));
-        System.out.println(yang.generate(33));
+        YangTriangle2 yangTriangle2 = new YangTriangle2();
 
+        System.out.println(yangTriangle2.getRow(0));
+        System.out.println(yangTriangle2.getRow(1));
+        System.out.println(yangTriangle2.getRow(2));
+        System.out.println(yangTriangle2.getRow(3));
+        System.out.println(yangTriangle2.getRow(4));
+        System.out.println(yangTriangle2.getRow(5));
+        System.out.println(yangTriangle2.getRow(6));
     }
-
 
 }
