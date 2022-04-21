@@ -1,4 +1,4 @@
-package com.zp.leetcode.package_2022.april0420;
+package com.zp.leetcode.package_2022.april.april0420;
 
 import java.util.ArrayList;
 import java.util.List;

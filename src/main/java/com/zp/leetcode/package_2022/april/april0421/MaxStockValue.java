@@ -1,4 +1,4 @@
-package com.zp.leetcode.package_2022.april0421;
+package com.zp.leetcode.package_2022.april.april0421;
 
 /**
  * @author zhengpeng
@@ -13,8 +13,8 @@ public class MaxStockValue {
      * @return
      */
     public int maxProfit2(int[] prices) {
-        Integer maxProfit = 0;
-        Integer minValue = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        int minValue = Integer.MAX_VALUE;
         for (int i = 0; i < prices.length; i++) {
             if(minValue > prices[i]){
                 //记录最小的值
