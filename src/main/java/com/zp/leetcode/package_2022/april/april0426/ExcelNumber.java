@@ -76,9 +76,11 @@ public class ExcelNumber {
     public static void main(String[] args) {
         ExcelNumber excelNumber = new ExcelNumber();
         //System.out.println(excelNumber.titleToNumber("A"));
-        System.out.println(excelNumber.titleToNumber("AA"));
-        System.out.println(excelNumber.titleToNumber("AB"));
-        System.out.println(excelNumber.titleToNumber("ZY"));
+        //System.out.println(excelNumber.titleToNumber("AA"));
+        //System.out.println(excelNumber.titleToNumber("AB"));
+        //System.out.println(excelNumber.titleToNumber("ZY"));
+        System.out.println(excelNumber.titleToNumber("ZZ"));
+        System.out.println(excelNumber.titleToNumber("ZZZ"));
 
 
     }
