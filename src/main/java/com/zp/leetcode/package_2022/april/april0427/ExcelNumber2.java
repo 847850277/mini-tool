@@ -98,6 +98,7 @@ public class ExcelNumber2 {
             n++;
         };
 
+        //确定n的次数
         if(n == 1){
             return String.valueOf((keyValueMap.get(columnNumber)));
         }
