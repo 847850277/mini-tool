@@ -7,22 +7,21 @@ package com.zp.leetcode.package_2022.may.may06;
  **/
 public class HappyNumber {
 
+
+
     /**
      * 是否是快乐数
      * @param n
      * @return
      */
     public boolean isHappy(int n){
-
-        if (n == 1 || n == 7 || n == 10 || n == 13){
-            return true;
-        }
-
-        while (n > 10){
-            n = iterGetSum(n);
-            if(n == 1){
+        while (n > 0){
+            if (n == 1 || n == 7){
                 return true;
+            }else if(n < 10) {
+                return false;
             }
+            n = iterGetSum(n);
         }
         return false;
     }
@@ -71,6 +70,8 @@ public class HappyNumber {
         //System.out.println(happyNumber.isHappy(100));
         //System.out.println(happyNumber.isHappy(2));
         System.out.println(happyNumber.isHappy(1));
+        System.out.println(happyNumber.isHappy(7));
+        System.out.println(happyNumber.isHappy(8));
         //System.out.println(happyNumber.getDigitNum(109));
         //System.out.println(109 % 10);
         //System.out.println(1009 % 10);
