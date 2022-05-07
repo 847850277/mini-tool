@@ -8,7 +8,6 @@ package com.zp.leetcode.package_2022.may.may06;
 public class HappyNumber {
 
 
-
     /**
      * 是否是快乐数
      * @param n
