@@ -16,6 +16,7 @@ public class NumSub {
             final char c1 = s.charAt((int) i);
             if(c != c1){
                 sum += getCombination(start,i);
+                //起点指向下一个
                 start = i + 1;
             }
             //最后一条处理
