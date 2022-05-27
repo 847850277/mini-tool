@@ -19,31 +19,31 @@ public class FindClosest {
      */
     public int findClosest(String[] words, String word1, String word2) {
         int minSize = Integer.MAX_VALUE;
-        String fisrtFindWords = "";
+        String firstFindWords = "";
         int length = words.length;
         Map<String,Integer> keyIndex = new HashMap<String,Integer>();
         for (int i = 0; i < length; i++) {
             final String word = words[i];
             //把第一个找到的单词放进去
-            if((word.equals(word1) || word.equals(word2)) && "".equals(fisrtFindWords)){
-                fisrtFindWords = word;
+            if((word.equals(word1) || word.equals(word2)) && "".equals(firstFindWords)){
+                firstFindWords = word;
                 keyIndex.put(word,i);
                 continue;
             }
             //第二个单词
             if(word.equals(word1) || word.equals(word2)){
                 //第二个找到的和第一个相同,替换下标位置
-                if(word.equals(fisrtFindWords)){
+                if(word.equals(firstFindWords)){
                     keyIndex.put(word,i);
                 }else {
                     //第二个找到的和第一个不相同,计算差别
                     keyIndex.put(word, i);
-                    int diff = (i - keyIndex.get(fisrtFindWords));
+                    int diff = (i - keyIndex.get(firstFindWords));
                     minSize = Math.min(diff,minSize);
                     //剔除前一个元素
-                    keyIndex.remove(fisrtFindWords);
+                    keyIndex.remove(firstFindWords);
                     //第一个单词替换
-                    fisrtFindWords = word;
+                    firstFindWords = word;
                 }
             }
         }
