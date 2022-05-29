@@ -22,9 +22,27 @@ public class CountBits {
         return array;
     }
 
+    public int[] countBits1(int n) {
+        int[] array = new int[n + 1];
+        array[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            final String s = Integer.toBinaryString(i);
+            final int length = s.length();
+            int sum = 0;
+            for (int j = 0; j < length; j++) {
+                if(s.charAt(j) == '1'){
+                    sum++;
+                }
+            }
+            array[i] = sum;
+        }
+        return array;
+    }
+
     public static void main(String[] args) {
         CountBits countBits = new CountBits();
-        final int[] ints = countBits.countBits(5);
+        //final int[] ints = countBits.countBits(5);
+        final int[] ints = countBits.countBits1(5);
         for (int anInt : ints) {
             System.out.printf(anInt + ",");
         }
