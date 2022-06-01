@@ -18,8 +18,9 @@ public class AsteroidCollision {
             if(!stack.isEmpty() && asteroid > 0){
 
                 //final Integer peek = stack.peek();
+                stack.push(asteroid);
                 //调整
-                iterPush(stack,asteroid);
+                //iterPush(stack,asteroid);
 //                if(peek > 0){
 //                    stack.push(asteroid);
 //                }else if(peek <= 0){
@@ -84,18 +85,65 @@ public class AsteroidCollision {
      */
     private void iterPush(Stack<Integer> stack, int asteroid) {
 
-
-        while (canPop(stack.peek(),asteroid)){
-            
+        int peek = stack.peek();
+        while (canPopAndPop(peek,asteroid) && !stack.isEmpty()){
+            stack.pop();
+            if(!stack.isEmpty()){
+                peek = stack.peek();
+            }
         }
-        
+        //等循环处理完,
+
+        // 碰撞后为0
+        if(peek + asteroid == 0){
+            stack.pop();
+        }
+        // 不为0
+        if(asteroid > 0 && (asteroid + peek) > 0){
+            //什么都不做
+        }
+
+        if(asteroid < 0 && (asteroid + peek) < 0){
+            stack.push(asteroid);
+        }
+
+
+
+
 
 
 
     }
 
 
-    private boolean canPop(Integer peek, int asteroid) {
+    private boolean canPopAndPop(Integer peek, int asteroid) {
+
+        if(asteroid > 0){
+
+           if(peek >= 0){
+               return false;
+           }
+           if(peek < 0){
+               if((peek + asteroid) < 0){
+                   return true;
+               }else{
+                   return false;
+               }
+           }
+        }else{
+
+            if(peek <= 0){
+                return false;
+            }
+            if(peek > 0){
+                if((peek + asteroid) < 0){
+                    return true;
+                }else{
+                    return false;
+                }
+
+            }
+        }
 
         return  false;
     }
@@ -125,7 +173,7 @@ public class AsteroidCollision {
         AsteroidCollision asteroidCollision = new AsteroidCollision();
         //int[] array = new int[]{5,10,-5};
         //int[] array = new int[]{8,-8};
-        int[] array = new int[]{10,2,-5};
+        int[] array = new int[]{10,2,-5,-100};
         //new ArrayList<>(100);
         //ArrayList<Integer> integers = new ArrayList<>(100);
         //integers.add(99,100);
