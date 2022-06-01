@@ -149,25 +149,30 @@ public class AsteroidCollision {
     }
 
     /**
-     * another
+     * 标准答案
      * @param asteroids
      * @return
      */
     public int[] asteroidCollision1(int[] asteroids) {
-
-
-
-
-
-
-
-
-
-
-
-
-        return null;
+        Stack<Integer> s = new Stack<>();
+        int p = 0;
+        while (p < asteroids.length) {
+            if (s.empty() || s.peek() < 0 || asteroids[p] > 0) {
+                s.push(asteroids[p]);
+            } else if (s.peek() <= -asteroids[p]) {
+                if (s.pop() < -asteroids[p]) {
+                    continue;
+                }
+            }
+            p++;
+        }
+        int[] ret = new int[s.size()];
+        for (int i = ret.length - 1; i >= 0; i--) {
+            ret[i] = s.pop();
+        }
+        return ret;
     }
+
 
     public static void main(String[] args) {
         AsteroidCollision asteroidCollision = new AsteroidCollision();
