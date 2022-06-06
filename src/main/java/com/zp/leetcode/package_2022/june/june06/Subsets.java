@@ -75,7 +75,7 @@ public class Subsets {
             }
         }
         used.add(collect);
-        return  false;
+        return false;
     }
 
 
@@ -107,6 +107,40 @@ public class Subsets {
         //testSet();
 
     }
+
+    /**
+     * 官方解答
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> subsetsWithDup1(int[] nums) {
+        //解题思路：全部解用遍历
+        List<List<Integer>> result = new ArrayList();
+        //包含重复数字要排序
+        Arrays.sort(nums);
+        dfs(result, nums, new ArrayList(), 0);
+        return result;
+    }
+
+    private void dfs(List<List<Integer>> result, int[] nums, List<Integer> path, int startIdx){
+        //父节点路径保留
+        result.add(new ArrayList(path));
+        //如果超限则放弃
+        if(startIdx == nums.length){
+            return;
+        }
+        //递归
+        for(int i = startIdx;  i < nums.length; i++){
+            //排除重复元素
+            if((i != startIdx && nums[i] == nums[i - 1])){
+                continue;
+            }
+            path.add(nums[i]);
+            dfs(result, nums, path, i + 1);
+            path.remove(path.size() - 1);
+        }
+    }
+
 
     /**
      * 测试set
