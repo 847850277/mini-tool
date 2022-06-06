@@ -1,4 +1,4 @@
-package com.zp.leetcode.package_2022.june.june05;
+package com.zp.leetcode.package_2022.june.june06;
 
 /**
  * @author zhengpeng
