@@ -38,11 +38,33 @@ public class Subsets {
         }
     }
 
+    private void backtrack(int i, List<List<String>> result, char[] nums, ArrayList<Character> temp) {
+        result.add(new ArrayList(temp));
+        for (int j = i; j < nums.length; j++){
+            temp.add(nums[j]);
+            backtrack(j + 1,result,nums,temp);
+            //回溯
+            temp.remove(temp.size() - 1);
+        }
+    }
+
+
+    public List<List<String>> subsets(char[] chars) {
+        List<List<String>> result = new ArrayList<List<String>>();
+        backtrack(0,result,chars,new ArrayList<Character>());
+        return result;
+    }
+
     public static void main(String[] args) {
         int[] array = new int[]{1,2,3};
         Subsets subsets = new Subsets();
         final List<List<Integer>> subsets1 = subsets.subsets(array);
-        System.out.println(subsets1);
+
+        String s = "abcdabcdabcdabcdabcdabcdabcdabcddcbadcbadcbadcbadcbadcbadcbadcba";
+        char[] chars = s.toCharArray();
+        final List<List<String>> subsets2 = subsets.subsets(chars);
+
+        System.out.println(subsets2);
 
     }
 }
