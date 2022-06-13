@@ -1,4 +1,4 @@
-package com.zp.leetcode.package_2022.june.june13;
+package com.zp.leetcode.package_2022.june.june14;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +50,13 @@ public class CanPartition {
                 }
             }
         }
+
+        //再次遍历源数组
+        int temp = divide;
+
+
+
+
         return theRemaining == 0;
     }
 
