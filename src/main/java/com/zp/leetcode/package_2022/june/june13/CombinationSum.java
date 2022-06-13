@@ -23,12 +23,13 @@ public class CombinationSum {
     }
 
     private void backtrack1(int[] candidates, int target, List<List<Integer>> result, Stack<Integer> path, int index) {
-
-            if (target == 0){//当target=0说明已经达到了结束条件
+            //当target=0说明已经达到了结束条件
+            if (target == 0){
                 result.add(new ArrayList<>(path));
                 return;
             }
-            if (target < 0){//当target<0说明前面的选择已经是错误的，要撤销
+            //当target<0说明前面的选择已经是错误的，要撤销
+            if (target < 0){
                 return;
             }
             for (int i = index; i < candidates.length; i++) {
@@ -54,7 +55,7 @@ public class CombinationSum {
         }
 
         List<List<Integer>> result = new ArrayList<>();
-        backtrack(0,candidates,target,result,new Stack<Integer>(),0);
+        backtrack(0,candidates,target,result,new Stack<Integer>());
         return result;
     }
 
@@ -66,8 +67,10 @@ public class CombinationSum {
      * @param result
      * @param path
      */
-    private void backtrack(int i, int[] candidates, int target, List<List<Integer>> result, Stack<Integer> path,Integer sum) {
+    private void backtrack(int i, int[] candidates, int target, List<List<Integer>> result, Stack<Integer> path) {
         //推出递归函数
+        int sum = getSum(path);
+
         if(sum == target){
             result.add(new ArrayList<>(path));
             return;
@@ -78,12 +81,18 @@ public class CombinationSum {
         }
         for (int j = i; j < candidates.length; j++) {
             final int candidate = candidates[i];
-            sum = sum + candidate;
             path.push(candidate);
-            backtrack(j,candidates,target,result,path,sum);
-            sum = sum - candidate;
+            backtrack(j,candidates,target,result,path);
             path.pop();
         }
+    }
+
+    private int getSum(Stack<Integer> path) {
+        int sum = 0;
+        for (Integer integer : path) {
+            sum += integer;
+        }
+        return sum;
     }
 
 
