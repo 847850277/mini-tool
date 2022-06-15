@@ -14,7 +14,26 @@ public class SubarraySum {
 
     public int subarraySum(int[] nums, int k) {
 
-        return 0;
+        int slow = 0;
+        int length = nums.length;
+        int sum = 0;
+        int count = 0;
+        while (slow < length) {
+            for (int i = slow; i < length; i++) {
+                sum += nums[i];
+                if(sum == k){
+                    count++;
+                }
+                //和大于
+                if(sum > k){
+                    continue;
+                }
+
+            }
+            slow++;
+            sum = 0;
+        }
+        return count;
 
     }
 
@@ -31,10 +50,10 @@ public class SubarraySum {
     public static void main(String[] args) {
 
         SubarraySum subarraySum = new SubarraySum();
-        //int[] array = new int[]{1,2,3};
-        int[] array = new int[]{1,1,1};
+        int[] array = new int[]{1,2,3};
+        //int[] array = new int[]{1,1,1};
         //int[] array = new int[]{1,1,1};
         //int[] array = new int[]{1,-1,0};
-        System.out.println(subarraySum.subarraySum(array,2));
+        System.out.println(subarraySum.subarraySum(array,3));
     }
 }
