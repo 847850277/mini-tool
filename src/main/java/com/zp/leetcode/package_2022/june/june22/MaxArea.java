@@ -7,9 +7,21 @@ package com.zp.leetcode.package_2022.june.june22;
  **/
 public class MaxArea {
 
-    public int maxArea(int[] height) {
 
-        return 0;
+    public int maxArea(int[] nums) {
+        int left = 0 ;
+        int right = nums.length - 1;
+        int max = Integer.MIN_VALUE;
+        while (left < right) {
+            int maxArea = Math.min(nums[left], nums[right]) * (right - left);
+            max = Math.max(maxArea,max);
+            if(nums[left] >= nums[right]){
+                right--;
+            }else if(nums[left] < nums[right]){
+                left++;
+            }
+        }
+        return max;
     }
 
     public static void main(String[] args) {
