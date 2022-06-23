@@ -1,4 +1,4 @@
-package com.zp.leetcode.package_2022.june.june22;
+package com.zp.leetcode.package_2022.june.june23;
 
 import java.util.HashMap;
 import java.util.Map;
