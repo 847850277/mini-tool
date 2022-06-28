@@ -11,7 +11,7 @@ public class GenerateParenthesis {
 
     public static void main(String[] args) {
         GenerateParenthesis generateParenthesis = new GenerateParenthesis();
-        //System.out.println(generateParenthesis.generateParenthesis(3));
+        System.out.println(generateParenthesis.generateParenthesis(3));
         System.out.println(generateParenthesis.generateParenthesis1(3));
     }
 
@@ -19,40 +19,40 @@ public class GenerateParenthesis {
     public List<String> generateParenthesis(int n) {
 
         List<String> result = new ArrayList<String>();
-        int length = n * 2;
         Stack<Character> path = new Stack<>();
-        Set<String> sets = new HashSet<>();
-        char[] pairs = new char[length];
-        for (int i = 0; i < length; i++) {
-            if(i % 2 == 0){
-                pairs[i] = '(';
-            }else {
-                pairs[i] = ')';
-            }
-        }
-        backtrack(sets,path,length,pairs,0);
-        System.out.println(sets);
+        backtrack(result,path,0,0,n);
         return result;
     }
 
-    /**
-     * 回溯
-     * @param sets
-     * @param path
-     * @param length
-     * @param pairs
-     */
-    private void backtrack(Set<String> sets, Stack<Character> path, int length, char[] pairs,int index) {
-        if(path.size() == length){
-            sets.add(pathToString(path));
+    private void backtrack(List<String> result, Stack<Character> path, int left, int right, int n) {
+        //终止条件
+        if(path.size() == n * 2){
+            final String s = pathToString(path);
+
+            result.add(s);
             return;
         }
-        for (int i = 0; i < length; i++) {
-            path.push(pairs[index]);
-            backtrack(sets,path,length,pairs,i  + 1);
+        if(left < n){
+            path.push('(');
+            backtrack(result,path,left + 1 ,right,n);
             path.pop();
         }
+
+        //right小于n的时候，需要判断路径生成的括号是否满足规则
+//        if(right < n){
+//            path.push(')');
+//            backtrack(result,path,left,right + 1,n);
+//            path.pop();
+//        }
+
+        if(right < left){
+            path.push(')');
+            backtrack(result,path,left,right + 1,n);
+            path.pop();
+        }
+
     }
+
 
     private String pathToString(Stack<Character> path) {
         StringBuilder sb = new StringBuilder();
