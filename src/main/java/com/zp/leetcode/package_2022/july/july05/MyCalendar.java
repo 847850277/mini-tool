@@ -26,12 +26,8 @@ public class MyCalendar {
        for (List<Integer> data : datas) {
            int left = data.get(0);
            int right = data.get(1);
-           if(left<= start && start < right){
+           if(left < end && start < right){
                return false;
-           }
-
-           if(left < end && end <= right){
-                return false;
            }
        }
         List<Integer> items = new ArrayList<>();
