@@ -12,34 +12,50 @@ public class ShiftGrid {
 
     public static void main(String[] args) {
 
+        ShiftGrid shiftGrid = new ShiftGrid();
+        int[][] grid = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
+        int k = 1;
+        System.out.println(shiftGrid.shiftGrid(grid,k));
+
     }
+
 
 
     public List<List<Integer>> shiftGrid(int[][] grid, int k) {
-        int rows = grid.length, cols = grid[0].length;
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-        //展开到一维中
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        List<List<Integer>> result = new ArrayList<>();
+        while(k > 0){
+            //存放下一个临时结果
+            int m = grid.length, n = grid[0].length;
+            int[][] nums = new int[m][n];
+            //遍历整个数组
+            for(int i = 0; i < m; i++){
+                for(int j = 0; j < n; j++){
+                    //第三种情况
+                    if(i == m - 1 && j == n - 1){
+                        nums[0][0] = grid[i][j];
+                        continue;
+                    }
+                    //第二种那个情况
+                    if(i != m - 1 && j == n - 1){
+                        nums[i + 1][0] = grid[i][j];
+                        continue;
+                    }
+                    //第一种情况
+                    nums[i][j + 1] = grid[i][j];
+                }
+            }
+            grid = nums;
+            k--; //迁移次数减一
+        }
+        //存放结果
+        for(int i = 0; i < grid.length; i++){
+            List<Integer> temp = new ArrayList<>();
+            for(int j = 0; j < grid[0].length; j++){
                 temp.add(grid[i][j]);
             }
+            result.add(temp);
         }
-        //移动k次
-        for (int i = 0; i < k; i++) {
-            temp.add(0, temp.remove(temp.size() - 1));
-        }
-        int i = 0;
-        //封装结果
-        while (i < temp.size()) {
-            List<Integer> row = new ArrayList<>();
-            for (int j = 0; j < cols; j++) {
-                row.add(temp.get(i));
-                i++;
-            }
-            ans.add(row);
-        }
-        return ans;
-    }
+        return result;
 
+    }
 }
