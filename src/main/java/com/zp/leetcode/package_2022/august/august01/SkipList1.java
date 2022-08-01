@@ -1,9 +1,10 @@
-package com.zp.leetcode.package_2022.july.july26;
+package com.zp.leetcode.package_2022.august.august01;
+
 
 /**
  * @author zhengpeng
  * @date 2022/7/31 11:04 上午
- * 三层跳表
+ * 三层跳表 https://cmps-people.ok.ubc.ca/ylucet/DS/SkipList.html
  **/
 public class SkipList1 {
 
