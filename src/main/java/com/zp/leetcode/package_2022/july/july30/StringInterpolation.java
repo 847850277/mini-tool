@@ -18,7 +18,7 @@ public class StringInterpolation {
 
     public static void main(String[] args) {
         StringInterpolation stringInterpolation = new StringInterpolation();
-        String str = "My name is {{ name }} and I am forever {{ age }}.";
+        String str = "My name is {{ name }} and {{ name }} I am forever {{ age }}.";
         //String str = "Say hello to {{ name }}. He is {{ age }}.";
         //String str = "Tommy is a good friend of {{ name }}. He lives in {{ city }}.";
         String key = "{ \"name\": \"Bill\", \"age\": 21 }";
