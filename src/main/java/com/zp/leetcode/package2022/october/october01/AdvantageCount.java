@@ -2,17 +2,23 @@ package com.zp.leetcode.package2022.october.october01;
 
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.stream.IntStream;
 
 /**
  * @author zhengpeng
  * @date 2022/10/8 9:09 上午
- * 优势洗牌
+ * 优势洗牌 也可以叫做 "田忌赛马"
+ * 把num1当成田忌的马，把num2当成齐威王的马
+ *  - 如果他能比过齐威王的下等马（num2的最小值），这一分直接拿下
+ *  - 如果它比不过齐威王的下等马，则用田忌的下等马比齐威王的上等马（num2的最大值）
+ * 去掉这两匹马，问题变成规模更小的（n-1）的子问题，重复以上过程，即得到了所有马的对应关系
  **/
 public class AdvantageCount {
 
 
     public static void main(String[] args) {
+
         int[] array1 = new int[]{2,7,11,15};
         int[] array2 = new int[]{1,10,4,11};
 
@@ -27,7 +33,7 @@ public class AdvantageCount {
 
 
     /**
-     * 田忌赛马
+     *
      * @param nums1
      * @param nums2
      * @return
@@ -38,7 +44,7 @@ public class AdvantageCount {
         Arrays.sort(nums1);
         Integer[] ids = IntStream.range(0, n).boxed().toArray(Integer[]::new);
         //num2索引排序
-        Arrays.sort(ids, (i, j) -> nums2[i] - nums2[j]);
+        Arrays.sort(ids, Comparator.comparingInt(i -> nums2[i]));
         int left = 0, right = n - 1;
         for (int x : nums1){
             //选择num1元素赋值到索引位置
