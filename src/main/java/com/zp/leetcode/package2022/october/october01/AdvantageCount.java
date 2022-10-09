@@ -19,8 +19,11 @@ public class AdvantageCount {
 
     public static void main(String[] args) {
 
-        int[] array1 = new int[]{2,7,11,15};
-        int[] array2 = new int[]{1,10,4,11};
+        //int[] array1 = new int[]{2,7,11,15};
+        //int[] array2 = new int[]{1,10,4,11};
+
+        int[] array1 = new int[]{12,24,8,32};
+        int[] array2 = new int[]{13,25,32,11};
 
         AdvantageCount a = new AdvantageCount();
         int[] ints = a.advantageCount(array1, array2);
@@ -45,10 +48,15 @@ public class AdvantageCount {
         Integer[] ids = IntStream.range(0, n).boxed().toArray(Integer[]::new);
         //num2索引排序
         Arrays.sort(ids, Comparator.comparingInt(i -> nums2[i]));
+        //左右指针
         int left = 0, right = n - 1;
         for (int x : nums1){
-            //选择num1元素赋值到索引位置
-            ans[x > nums2[ids[left]] ? ids[left++] : ids[right--]] = x;
+            /**
+             *  - 如果他能比过齐威王的下等马（num2的最小值），这一分直接拿下
+             *  - 如果它比不过齐威王的下等马，则用田忌的下等马比齐威王的上等马（num2的最大值）
+              */
+            Integer index = x > nums2[ids[left]] ? ids[left++] : ids[right--];
+            ans[index] = x;
         }
         return ans;
     }
