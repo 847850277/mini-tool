@@ -25,6 +25,7 @@ public class PartitionDisjoint {
         int n = nums.length;
         int[] minRight = new int[n];
         minRight[n - 1] = nums[n - 1];
+        //这个循环干嘛？
         for (int i = n - 2; i >= 0; i--) {
             minRight[i] = Math.min(nums[i], minRight[i + 1]);
         }
