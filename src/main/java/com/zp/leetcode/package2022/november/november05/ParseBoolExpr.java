@@ -13,17 +13,24 @@ public class ParseBoolExpr {
 
     public static void main(String[] args) {
 
-        String expression = "!(f)";
+        //String expression = "!(f)";
+        //String expression = "|(f,t)";
+        String expression = "|(&(t,f,t),!(t))";
         ParseBoolExpr parseBoolExpr = new ParseBoolExpr();
         System.out.println(parseBoolExpr.parseBoolExpr(expression));
 
 
     }
 
-
+    /**
+     * 抽象成无数个小规模的方法
+     * @param expression
+     * @return
+     */
     public boolean parseBoolExpr(String expression) {
         Deque<Character> stack = new ArrayDeque<Character>();
         int n = expression.length();
+        // 遍历表达式字符串
         for (int i = 0; i < n; i++) {
             char c = expression.charAt(i);
             if (c == ',') {
@@ -31,26 +38,27 @@ public class ParseBoolExpr {
             } else if (c != ')') {
                 stack.push(c);
             } else {
-                int t = 0, f = 0;
+                int tCount = 0, fCount = 0;
                 while (stack.peek() != '(') {
                     char val = stack.pop();
                     if (val == 't') {
-                        t++;
+                        tCount++;
                     } else {
-                        f++;
+                        fCount++;
                     }
                 }
                 stack.pop();
+                //操作符号
                 char op = stack.pop();
                 switch (op) {
                     case '!':
-                        stack.push(f == 1 ? 't' : 'f');
+                        stack.push(fCount == 1 ? 't' : 'f');
                         break;
                     case '&':
-                        stack.push(f == 0 ? 't' : 'f');
+                        stack.push(fCount == 0 ? 't' : 'f');
                         break;
                     case '|':
-                        stack.push(t > 0 ? 't' : 'f');
+                        stack.push(tCount > 0 ? 't' : 'f');
                         break;
                     default:
                 }
