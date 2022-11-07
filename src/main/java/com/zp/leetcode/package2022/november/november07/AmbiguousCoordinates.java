@@ -12,7 +12,6 @@ public class AmbiguousCoordinates {
 
 
     public static void main(String[] args) {
-
         String s = "(123)";
         AmbiguousCoordinates ambiguousCoordinates = new AmbiguousCoordinates();
         System.out.println(ambiguousCoordinates.ambiguousCoordinates(s));
@@ -32,7 +31,6 @@ public class AmbiguousCoordinates {
                 }
             }
         }
-
         return res;
     }
 
