@@ -19,28 +19,28 @@ public class HalvesAreAlike {
 
     public boolean halvesAreAlike(String s) {
         int len = s.length();
-        Map<Character,Character> map = new HashMap<Character,Character>(){{
-            put('a',' ');
-            put('e',' ');
-            put('i',' ');
-            put('o',' ');
-            put('u',' ');
-            put('A',' ');
-            put('E',' ');
-            put('I',' ');
-            put('O',' ');
-            put('U',' ');
+        Map<Character, Character> map = new HashMap<Character, Character>() {{
+            put('a', ' ');
+            put('e', ' ');
+            put('i', ' ');
+            put('o', ' ');
+            put('u', ' ');
+            put('A', ' ');
+            put('E', ' ');
+            put('I', ' ');
+            put('O', ' ');
+            put('U', ' ');
         }};
-        String left = s.substring(0, len/2);
-        String right = s.substring(len/2,len);
-        int l = 0,r = 0;
-        for (int i = 0; i <left.length(); i++) {
-            if(map.containsKey(left.charAt(i))){
+        String left = s.substring(0, len / 2);
+        String right = s.substring(len / 2, len);
+        int l = 0, r = 0;
+        for (int i = 0; i < left.length(); i++) {
+            if (map.containsKey(left.charAt(i))) {
                 l++;
             }
         }
-        for(int i = 0; i < right.length(); i++) {
-            if(map.containsKey(right.charAt(i))){
+        for (int i = 0; i < right.length(); i++) {
+            if (map.containsKey(right.charAt(i))) {
                 r++;
             }
         }
