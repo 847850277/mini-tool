@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * @author zhengpeng
  * @date 2022/12/6 9:10 上午
- *
+ * 字符串中不同整数的数目
  **/
 public class NumDifferentIntegers {
 
