@@ -32,7 +32,8 @@ public class ShortestAlternatingPaths {
         for (int[] edge : blueEdges) {
             next[1][edge[0]].add(edge[1]);
         }
-        int[][] dist = new int[2][n]; // 两种类型的颜色最短路径的长度
+        // 两种类型的颜色最短路径的长度
+        int[][] dist = new int[2][n];
         for (int i = 0; i < 2; i++) {
             Arrays.fill(dist[i], Integer.MAX_VALUE);
         }
@@ -61,6 +62,4 @@ public class ShortestAlternatingPaths {
         }
         return answer;
     }
-
-
 }
