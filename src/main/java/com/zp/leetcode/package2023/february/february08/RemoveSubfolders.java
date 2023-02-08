@@ -1,6 +1,7 @@
 package com.zp.leetcode.package2023.february.february08;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +16,21 @@ public class RemoveSubfolders {
     public static void main(String[] args) {
         String[] folders = new String[]{"/a", "/a/b", "/c/d", "/c/d/e", "/c/f"};
         RemoveSubfolders removeSubfolders = new RemoveSubfolders();
-        System.out.println(removeSubfolders.removeSubfolders(folders));
+        System.out.println(removeSubfolders.removeSubfolders1(folders));
     }
 
+    public List<String> removeSubfolders1(String[] folder) {
+        Arrays.sort(folder);
+        List<String> ans = new ArrayList<String>();
+        ans.add(folder[0]);
+        for (int i = 1; i < folder.length; ++i) {
+            int pre = ans.get(ans.size() - 1).length();
+            if (!(pre < folder[i].length() && ans.get(ans.size() - 1).equals(folder[i].substring(0, pre)) && folder[i].charAt(pre) == '/')) {
+                ans.add(folder[i]);
+            }
+        }
+        return ans;
+    }
 
     public List<String> removeSubfolders(String[] folder) {
         Trie root = new Trie();
