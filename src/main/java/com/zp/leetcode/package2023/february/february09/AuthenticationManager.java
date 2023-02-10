@@ -19,10 +19,7 @@ public class AuthenticationManager {
         a.renew("aaa",8);
         a.renew("bbb",10);
         System.out.println(a.countUnexpiredTokens(15));
-
-
     }
-
 
     private Integer timeToLive;
     private Map<String,Integer> map;
