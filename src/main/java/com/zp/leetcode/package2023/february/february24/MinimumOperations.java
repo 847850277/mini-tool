@@ -11,6 +11,9 @@ import java.util.Set;
 public class MinimumOperations {
 
     public static void main(String[] args) {
+        int[] array = new int[]{1,2,3,4};
+        MinimumOperations min = new MinimumOperations();
+        System.out.println(min.minimumOperations(array));
 
     }
 
