@@ -19,8 +19,6 @@ public class BestTeamScore {
         BestTeamScore bestScore = new BestTeamScore();
         System.out.println(bestScore.bestTeamScore(scores,ages));
 
-
-
     }
 
 
