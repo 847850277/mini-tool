@@ -24,7 +24,7 @@ public class StreamChecker {
         //String[] words = new String[]{"cd","f","kl"};
         //String[] words = new String[]{"ab", "ba", "aaab", "abab", "baa"};
         String[] words = new String[]{"abaa","abaab","aabbb","bab","ab"};
-        StreamChecker streamChecker = new StreamChecker(words);
+        StreamChecker1 streamChecker = new StreamChecker1(words);
 /*
         System.out.println(streamChecker.query('a'));
         System.out.println(streamChecker.query('b'));
@@ -91,6 +91,44 @@ public class StreamChecker {
         System.out.println(streamChecker.query('b'));
         System.out.println(streamChecker.query('a'));
     }
+
+
+    public static class StreamChecker1 {
+
+        private StringBuilder sb;
+        private String[] words;
+
+        public StreamChecker1(String[] words) {
+            this.sb = new StringBuilder();
+            this.words = words;
+        }
+
+        public boolean query(char letter) {
+            sb.append(letter);
+            for (int i = 0; i < words.length; i++) {
+                int l = words[i].length() - 1;
+                int j = sb.length() - 1;
+                boolean flag = true;
+                while (l >= 0 && j >= 0) {
+                    //？ 什么意思
+                    if (sb.length() < words[i].length() || sb.charAt(j--) != words[i].charAt(l--)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag)
+                    return true;
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Your StreamChecker object will be instantiated and called as such:
+     * StreamChecker obj = new StreamChecker(words);
+     * boolean param_1 = obj.query(letter);
+     */
+
 
 
 
