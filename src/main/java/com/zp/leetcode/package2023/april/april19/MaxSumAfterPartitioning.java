@@ -8,6 +8,10 @@ package com.zp.leetcode.package2023.april.april19;
 public class MaxSumAfterPartitioning {
 
     public static void main(String[] args) {
+        int[] array = new int[]{1,15,7,9,2,5,10};
+        int k = 3;
+        MaxSumAfterPartitioning maxSumAfterPartitioning = new MaxSumAfterPartitioning();
+        System.out.println(maxSumAfterPartitioning.maxSumAfterPartitioning(array,k));
 
     }
 
