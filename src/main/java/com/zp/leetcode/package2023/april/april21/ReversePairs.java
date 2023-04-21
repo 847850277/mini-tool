@@ -1,4 +1,4 @@
-package com.zp.leetcode.package2023.april.april19;
+package com.zp.leetcode.package2023.april.april21;
 
 /**
  * @author zhengpeng
@@ -9,16 +9,38 @@ public class ReversePairs {
 
     public static void main(String[] args) {
         ReversePairs reversePairs = new ReversePairs();
+        int[] array = new int[]{1,1,1,3,5};
         //int[] array = new int[]{0,6,7,8,9,10,13,15};
-        //int target = 9;
-        //System.out.println(reversePairs.binarySearchSum(array,target));
+        int target = 1;
+        System.out.println(reversePairs.binarySearchSum(array,target));
         //int[] array = new int[]{7,5,6,4};
-        int[] array = new int[]{13,8,10,6,15,18,12,20,9,14,17,19};
-        System.out.println(reversePairs.reversePairs(array));
-
-
+        //int[] array = new int[]{13,8,10,6,15,18,12,20,9,14,17,19};
+        //int[] array = new int[]{13,8,10,6,15,18,12};
+        //int[] array = new int[]{15,18,12};
+        //int[] array = new int[]{13,8,10,6,15,18,12,20,9};
+        //int[] array = new int[]{1,1,1,1,1};
+        //int[] array = new int[]{18,12,20,9};
+        //System.out.println(reversePairs.reversePairs_0(array));
+        //System.out.println(reversePairs.reversePairs(array));
     }
 
+    /**
+     * 两层循环
+     * @param nums
+     * @return
+     */
+    public int reversePairs_0(int[] nums) {
+        int sum = 0;
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if(nums[i] > nums[j]){
+                    sum++;
+                }
+            }
+        }
+        return sum;
+    }
 
     /**
      * 分治法 N logN 平方的算法
@@ -79,7 +101,7 @@ public class ReversePairs {
      * @param leftArray
      * @return
      */
-    private int binarySearch(int[] rightArray, int[] leftArray) {
+    private int binarySearch(int[] leftArray, int[] rightArray) {
         int sum = 0;
         for (int i : rightArray) {
             sum += binarySearchSum(leftArray,i);
@@ -90,33 +112,38 @@ public class ReversePairs {
     public int binarySearchSum(int[] arr, int target) {
         int low = 0;
         int high = arr.length - 1;
-        //定义middle
-        int middle = 0;
-
         if(target > arr[high]){
-            return arr.length;
+            return 0;
         }
         if(target < arr[low]){
-            return 0;
+            return arr.length;
         }
         if( low > high){
             return 0;
         }
 
-        while(low <= high){
-            middle = (low + high) / 2;
-            if(arr[middle] > target){
-                //比关键字大则关键字在左区域
-                high = middle - 1;
-            }else if(arr[middle] < target){
-                //比关键字小则关键字在右区域
-                low = middle + 1;
-            }else{
-                return middle;
+        //首尾相加再除以2得出中间索引
+        int mid = (low + high) / 2;
+        //TODO 处理值相等的情况，target的值在数组中存在
+        while (low<=high) { //确保程序不会重复查询，不会越界
+            if (target > arr[mid]) {
+                //如果查询的值比中间值大，则往右边区域找，就把最小索引改为中间索引右移一位
+                low = mid + 1;
+            } else if (target < arr[mid]) {
+                //如果查询的值比中间值小，则往左边区域找，就把最大索引改为中间索引左移一位
+                high = mid - 1;
+            } else {
+                //剩余的情况就是查询到了结果，那么就直接返回索引。
+                //if(mid == (arr.length -1)){
+                //    return 0;
+                //}else if(mid + 1)
+                return (arr.length - 1 - mid);
             }
+            mid = (low + high) / 2;
         }
-        //最后仍然没有找到，则返回-1
-        return middle;
+        //没有查询到，则返回-1
+        return (arr.length - 1 - mid);
+
     }
 
 
