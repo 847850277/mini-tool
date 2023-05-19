@@ -1,5 +1,6 @@
 package com.zp.leetcode.package2023.may.may19;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -18,11 +19,42 @@ public class NumTilePossibilities {
         NumTilePossibilities numTilePossibilities = new NumTilePossibilities();
         String str = "AAB";
         //String str = "AABB";
+        //System.out.println(numTilePossibilities.numTilePossibilities1(str));
         System.out.println(numTilePossibilities.numTilePossibilities(str));
 
     }
 
+
+
+    int res = 0;
+    int[] used;
     public int numTilePossibilities(String tiles) {
+        used = new int[tiles.length()];
+        char[] array = tiles.toCharArray();
+        Arrays.sort(array);
+        backTracking(array);
+        return res;
+    }
+
+    private void backTracking(char[] array) {
+        for (int i = 0; i < array.length; i++) {
+            // 树层去重，前一位没被选上且后一位与前一位相同
+            if(i > 0 && used[i-1] == 0 && array[i] == array[i-1]) {
+                continue;
+            }
+            // 自己不能被选两次
+            if(used[i] == 1) {
+                continue;
+            }
+            res++;
+            used[i] = 1;
+            backTracking(array);
+            used[i] = 0;
+        }
+    }
+
+
+    public int numTilePossibilities1(String tiles) {
         Map<Character,Integer> map = new HashMap<>();
         char[] chars = tiles.toCharArray();
         for (char aChar : chars) {
