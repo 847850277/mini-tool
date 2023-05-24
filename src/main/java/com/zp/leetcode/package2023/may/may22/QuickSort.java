@@ -27,6 +27,7 @@ public class QuickSort {
         if (start >= end) {
             return;
         }
+        //轴
         int mid = arr[end];
         int left = start, right = end - 1;
         while (left < right) {
