@@ -1,7 +1,4 @@
-package com.zp.leetcode.package2023.june.june14;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.zp.leetcode.package2023.june.june15;
 
 /**
  * @author zhengpeng
