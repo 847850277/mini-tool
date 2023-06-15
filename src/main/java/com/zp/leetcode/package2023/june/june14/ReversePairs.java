@@ -184,6 +184,7 @@ public class ReversePairs {
             }
         }
 
+        //没有查找到满足条件target的数据，返回满足条件的数组长度
         return (nums.length - left);
 
     }
