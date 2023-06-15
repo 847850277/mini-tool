@@ -17,8 +17,9 @@ public class ReversePairs {
         //System.out.println(reversePairs.binarySearchSum(array,target));
         //int[] array = new int[]{7,5,6,4};
         //int[] array = new int[]{13,8,10,6,15,18,12,20,9,14,17,19};
+        int[] array = new int[]{1,1,1,1,1};
         //int[] array = new int[]{1,3,2,3,1};
-        int[] array = new int[]{2147483647,2147483647,-2147483647,-2147483647,-2147483647,2147483647};
+        //int[] array = new int[]{2147483647,2147483647,-2147483647,-2147483647,-2147483647,2147483647};
         //int[] array = new int[]{13,8,10,6,15,18,12};
         //int[] array = new int[]{15,18,12};
         //int[] array = new int[]{13,8,10,6,15,18,12,20,9};
@@ -56,7 +57,6 @@ public class ReversePairs {
             return 0;
         }
         return reversePairs(nums,0,nums.length - 1);
-        //return 0;
     }
 
     private int reversePairs(int[] nums, int left, int right) {
@@ -98,7 +98,6 @@ public class ReversePairs {
         // 归并排序
         mergeSort(leftArray,0,leftArray.length - 1);
         mergeSort(rightArray,0,rightArray.length - 1);
-        //return binarySearch(rightArray,leftArray);
         return binarySearch(leftArray,rightArray);
     }
 
@@ -111,55 +110,83 @@ public class ReversePairs {
     private int binarySearch(int[] leftArray, int[] rightArray) {
         int sum = 0;
         for (int i : rightArray) {
-            sum += binarySearchLength(leftArray,i);
+            sum += binarySearch(leftArray,i);
         }
         return sum;
     }
 
+
     /**
-     *
-     * @param arr
+     * 可查找重复元素的二分查找算法
+     * 思路：
+     *  1、先定义两个下标 ， left = 0 , right = arr.length -1;
+     *  2、因为我们也不知道要循环多少次，定义一个while循环，终止条件为right>left
+     *  3、因为是二分查找，定义一个mid = left + (right - left) / 2;防止数据过大溢出
+     *  4、定义三个if语句，如果 target == arr[mid], return mid;这是经典的二分查找，我们需要在这做改进
+     *  4.1、改进经典二分算法，因为可能有重复元素，我们需要返回第一个出现target的下标；因为我们也不知道mid前面有几个重复的元素
+     * 因此我们需要一个while(mid>=0)的循环，mid--,然后比对arr[mid]和target，只要不一样就终止，返回
+     *  5、如果 target < arr[mid] , right = mid - 1;
+     *  6、如果target > arr[mid] , left = mid + 1;
+     * @param nums
      * @param target
      * @return
      */
-    public int binarySearchLength(int[] arr, int target) {
-        int low = 0;
-        int high = arr.length - 1;
-        if(target > arr[high]){
+    public int binarySearch(int[] nums , int target){
+
+        int left = 0;
+        int right = nums.length - 1;
+
+        if(target > nums[right]){
             return 0;
         }
-        if(target < arr[low]){
-            return arr.length;
+        if(target < nums[left]){
+            return nums.length;
         }
 
-        while (low <= high){
-            int mid = low + (high - low) / 2;
-            if(arr[mid] == target){
-                int temp = mid;
-                while (arr[temp] == target){
-                    if(arr[temp] == target && temp != 0){
-                        temp = temp-1;
+        while(left <= right ) {
+            int mid = (left + (right - left) / 2);
+            if( target == nums[mid] ) {
+                //左边的临界条件
+                while(mid >= 0) {
+                    if(nums[mid] != target) {
+                        break;
                     }
-                    if(temp <= 0){
+                    mid--;
+                }
+                if(mid <= -1 ) {
+                    int currentIndexValue = nums[0];
+                    int nextValueIndex = 0;
+                    while (currentIndexValue == nums[nextValueIndex] && nextValueIndex < (nums.length -1)){
+                        nextValueIndex++;
+                    }
+                    if(nextValueIndex == 0){
                         return 0;
                     }
-                    if(temp >= mid && arr[temp] == target){
-                        temp = temp+1;
+                    if(nums[nextValueIndex] == nums[0]){
+                        return 0;
                     }
-                    if(temp == arr.length){
-                        return arr.length;
-                    }
+                    return nums.length - nextValueIndex;
                 }
-                return (temp + 1);
-            }else if(arr[mid] > target){
-                high = mid -1;
-            }else{
-                low = mid + 1;
+                //右边的临界条件
+                //多减了一次，返回的时候需要再加1
+                int index =  mid + 1;
+                while(index <= nums.length - 1) {
+                    if(nums[index] != target) {
+                        break;
+                    }
+                    index++;
+                }
+                return nums.length - index;
+            }else if( target < nums[mid] ) {
+                right = mid - 1;
+            }else {
+                left = mid + 1;
             }
         }
-        return (arr.length - low);
-    }
 
+        return (nums.length - left);
+
+    }
 
     public void mergeSort(int[] nums,int l,int r){
         if(l >= r){
@@ -204,6 +231,51 @@ public class ReversePairs {
         while (l <= r){
             nums[l++] = temp[t++];
         }
+    }
+
+
+    /**
+     *
+     * @param arr
+     * @param target
+     * @return
+     */
+    public int binarySearchLength(int[] arr, int target) {
+        int low = 0;
+        int high = arr.length - 1;
+        if(target > arr[high]){
+            return 0;
+        }
+        if(target < arr[low]){
+            return arr.length;
+        }
+
+        while (low <= high){
+            int mid = low + (high - low) / 2;
+            if(arr[mid] == target){
+                int temp = mid;
+                while (arr[temp] == target){
+                    if(arr[temp] == target && temp != 0){
+                        temp = temp-1;
+                    }
+                    if(temp <= 0){
+                        return 0;
+                    }
+                    if(temp >= mid && arr[temp] == target){
+                        temp = temp+1;
+                    }
+                    if(temp == arr.length){
+                        return arr.length;
+                    }
+                }
+                return (temp + 1);
+            }else if(arr[mid] > target){
+                high = mid -1;
+            }else{
+                low = mid + 1;
+            }
+        }
+        return (arr.length - low);
     }
 
 }
