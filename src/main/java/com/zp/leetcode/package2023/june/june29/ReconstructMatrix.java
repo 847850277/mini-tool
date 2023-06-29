@@ -13,6 +13,12 @@ public class ReconstructMatrix {
 
     public static void main(String[] args) {
 
+        ReconstructMatrix reconstructMatrix = new ReconstructMatrix();
+        int upper = 2;
+        int lower = 1;
+        int[] colsum = new int[]{1,1,1};
+        System.out.println(reconstructMatrix.reconstructMatrix(upper, lower, colsum));
+
     }
 
 
