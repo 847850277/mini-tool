@@ -20,7 +20,7 @@ public class AlternateDigitSum {
         int len = s.length();
         int sum = 0;
         for (int i = 0; i < len; i++) {
-            int val = Integer.valueOf(s.substring(i, i + 1));
+            int val = Integer.parseInt(s.substring(i, i + 1));
             negative = !negative;
             if(negative){
                 val = -val;
