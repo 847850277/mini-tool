@@ -19,6 +19,31 @@ public class LemonadeChange {
         System.out.println(lemonadeChange.lemonadeChange(array));
     }
 
+    public boolean lemonadeChange1(int[] bills) {
+        int five = 0,ten = 0;
+        for (int bill : bills) {
+            if(bill == 5){
+                five++;
+            }else if(bill == 10){
+                if(five == 0){
+                    return false;
+                }
+                five --;
+                ten++;
+            }else {
+                if(five > 0 && ten > 0){
+                    five--;
+                    ten--;
+                }else if(five >= 3){
+                    five -= 3;
+                }else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public boolean lemonadeChange(int[] bills) {
         int sum = 0;
         Map<Integer,Integer> keyCountMap = new HashMap<>();
