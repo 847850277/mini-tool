@@ -1,6 +1,5 @@
 package com.zp.designpattern.templatemethod;
 
-import com.oracle.tools.packager.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
