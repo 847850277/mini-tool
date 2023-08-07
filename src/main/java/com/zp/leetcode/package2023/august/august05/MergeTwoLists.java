@@ -3,6 +3,12 @@ package com.zp.leetcode.package2023.august.august05;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+
+/**
+ * 合并两个有序链表
+ * 利用优先队列
+ * 还可以优化、利用源数据的有序性
+ */
 public class MergeTwoLists {
 
     public static void main(String[] args) {
