@@ -17,7 +17,6 @@ public class ThreadPoolDispatcher implements Dispatcher{
     @Override
     public void onChannelReadEvent(AbstractNioChannel channel, Object readObject, SelectionKey key) {
         executorService.execute(() -> channel.getHandler().handleChannelRead(channel,readObject,key));
-
     }
 
     @Override

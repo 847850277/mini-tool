@@ -101,6 +101,7 @@ public class NioReactor {
     private void onChannelAcceptable(SelectionKey key) throws IOException {
         ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
         SocketChannel accept = serverSocketChannel.accept();
+        //非阻塞
         accept.configureBlocking(false);
         SelectionKey register = accept.register(selector, SelectionKey.OP_READ);
         register.attach(key.attachment());
