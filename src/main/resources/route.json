@@ -1,0 +1,13 @@
+{
+  "server": {
+    "group1": [
+      "http://127.0.0.1:8002"
+    ]
+  },
+  "route": [
+    {
+      "source": "/group1",
+      "target": "group1"
+    }
+  ]
+}
