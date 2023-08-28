@@ -1012,3 +1012,207 @@ public class Application {
 
 
 5.4. 发送数据
+
+
+要向已连接的客户端发送数据，必须使用 `handle (...)`或 `route (...)`附加 I/O 处理程序。
+I/O 处理程序可以访问 `HttpServerResponse`，以便能够写入数据。下面的示例使用 `handle (...)`方法
+
+
+```java
+
+import reactor.core.publisher.Mono;
+import reactor.netty.DisposableServer;
+import reactor.netty.http.server.HttpServer;
+
+public class Application {
+
+	public static void main(String[] args) {
+		DisposableServer server =
+				HttpServer.create()
+				          .handle((request, response) -> response.sendString(Mono.just("hello"))) 
+				          .bindNow();
+
+		server.onDispose()
+		      .block();
+	}
+}
+
+
+```
+
+
+5.4.1. 返回`Headers` 和其他元数据
+
+当你向连接的客户端发送数据时，可能需要发送其他头、 cookie、状态代码和其他元数据。
+可以使用 `HttpServerResponse` 提供此附加元数据。下面的示例演示如何这样做
+
+```java
+
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import reactor.core.publisher.Mono;
+import reactor.netty.DisposableServer;
+import reactor.netty.http.server.HttpServer;
+
+public class Application {
+
+	public static void main(String[] args) {
+		DisposableServer server =
+				HttpServer.create()
+				          .route(routes ->
+				              routes.get("/hello",
+				                  (request, response) ->
+				                      response.status(HttpResponseStatus.OK)
+				                              .header(HttpHeaderNames.CONTENT_LENGTH, "12")
+				                              .sendString(Mono.just("Hello World!"))))
+				          .bindNow();
+
+		server.onDispose()
+		      .block();
+	}
+}
+
+
+```
+
+
+5.4.2. 压缩响应
+
+你可以配置 HTTP 服务器发送压缩响应，具体取决于请求头 Accept-Encoding。具体参见官网。
+
+
+
+5.5. 接收数据
+
+要从已连接的客户端接收数据，必须使用 `handle (...)`或 `route (...)`附加 I/O 处理程序。
+I/O 处理程序可以访问 `HttpServerRequest`，以便能够读取数据。
+
+```java
+
+import reactor.netty.DisposableServer;
+import reactor.netty.http.server.HttpServer;
+
+public class Application {
+
+	public static void main(String[] args) {
+		DisposableServer server =
+				HttpServer.create()
+				          .handle((request, response) -> request.receive().then()) 
+				          .bindNow();
+
+		server.onDispose()
+		      .block();
+	}
+}
+
+```
+
+
+5.5.1. 接收 `Headers`, `URI Params`, 和其他 ` Metadata`
+
+从连接的客户端接收数据时，可能需要检查请求头、参数和其他元数据。
+可以通过使用 `HttpServerRequest` 获取此附加元数据。下面的示例说明如何做到这一点:
+
+```java
+
+import reactor.core.publisher.Mono;
+import reactor.netty.DisposableServer;
+import reactor.netty.http.server.HttpServer;
+
+public class Application {
+
+	public static void main(String[] args) {
+		DisposableServer server =
+				HttpServer.create()
+				          .route(routes ->
+				              routes.get("/{param}",
+				                  (request, response) -> {
+				                      if (request.requestHeaders().contains("Some-Header")) {
+				                          return response.sendString(Mono.just(request.param("param")));
+				                      }
+				                      return response.sendNotFound();
+				                  }))
+				          .bindNow();
+
+		server.onDispose()
+		      .block();
+	}
+}
+
+
+```
+
+
+5.5.2. 文件上传
+
+
+当从连接的客户机接收数据时，可能需要访问 POST 表单`(application/x-www-form-urlencode)`或多部分`(multipart/form-data)`数据。
+可以使用 `HttpServerRequest` 获取此数据。具体参见官网。
+
+
+获取连接客户端的地址
+
+
+5.5.3. HTTP 请求解码器
+
+默认情况下，Netty 为传入请求配置一些限制，具体参见官网例如:
+- 初始行的最大长度。 
+- 所有标头的最大长度。 
+- 内容或每个块的最大长度。
+
+
+5.6. 生命周期回调
+
+为了扩展 HttpServer，提供了以下生命周期回调:
+- doOnBind 当服务器通道即将绑定时调用。
+- doOnBound 在绑定服务器通道时调用。
+- doOnChannelInit 初始化通道时调用。
+- doOnConnection 连接远程客户端时调用
+- doOnUnbound 当服务器通道未绑定时调用。
+
+下面的示例使用 doOnConnection 和 doOnChannelInit 回调:
+
+```java
+
+import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.ReadTimeoutHandler;
+import reactor.netty.DisposableServer;
+import reactor.netty.http.server.HttpServer;
+import java.util.concurrent.TimeUnit;
+
+public class Application {
+
+	public static void main(String[] args) {
+		DisposableServer server =
+				HttpServer.create()
+				          .doOnConnection(conn ->
+				              conn.addHandlerFirst(new ReadTimeoutHandler(10, TimeUnit.SECONDS))) 
+				          .doOnChannelInit((observer, channel, remoteAddress) ->
+				              channel.pipeline()
+				                     .addFirst(new LoggingHandler("reactor.netty.examples")))    
+				          .bindNow();
+
+		server.onDispose()
+		      .block();
+	}
+}
+
+```
+
+5.7. TCP 级别配置 略，参见官网
+
+5.8. SSL and TLS 略，参见官网
+
+5.9. HTTP Access Log 略，参见官网
+
+5.10. HTTP/2 略，参见官网
+
+5.11. Metrics 略，参见官网
+
+5.12. Tracing 略，参见官网
+
+5.13. Unix Domain Sockets 略，参见官网
+
+5.14. Timeout Configuration 略，参见官网
+
+## 6 HTTP 客户端 略，参见官网
