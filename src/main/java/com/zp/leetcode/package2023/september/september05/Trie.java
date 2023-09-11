@@ -2,7 +2,6 @@ package com.zp.leetcode.package2023.september.september05;
 
 public class Trie {
 
-
     public static void main(String[] args) {
         Trie trie = new Trie();
         trie.insert("apple");
@@ -21,8 +20,6 @@ public class Trie {
     public Trie() {
         children = new Trie[26];
         isEnd = false;
-
-
     }
 
     /** Inserts a word into the trie. */
