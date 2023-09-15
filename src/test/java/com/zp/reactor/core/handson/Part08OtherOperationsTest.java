@@ -37,6 +37,7 @@ public class Part08OtherOperationsTest {
 				.verifyComplete();
 	}
 
+	//========================================================================================
 	@Test
 	public void fastestMono() {
 		ReactiveRepository<User> repository = new ReactiveUserRepository(MARIE);
@@ -52,6 +53,75 @@ public class Part08OtherOperationsTest {
 		StepVerifier.create(mono)
 				.expectNext(MIKE)
 				.verifyComplete();
+	}
+
+
+	//========================================================================================
+
+	@Test
+	public void fastestFlux() {
+		ReactiveRepository<User> repository = new ReactiveUserRepository(MARIE, MIKE);
+		ReactiveRepository<User> repositoryWithDelay = new ReactiveUserRepository(250);
+		Flux<User> flux = workshop.useFastestFlux(repository.findAll(), repositoryWithDelay.findAll());
+		StepVerifier.create(flux)
+				.expectNext(MARIE, MIKE)
+				.verifyComplete();
+
+		repository = new ReactiveUserRepository(250, MARIE, MIKE);
+		repositoryWithDelay = new ReactiveUserRepository();
+		flux = workshop.useFastestFlux(repository.findAll(), repositoryWithDelay.findAll());
+		StepVerifier.create(flux)
+				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
+				.verifyComplete();
+	}
+
+	//========================================================================================
+
+	@Test
+	public void complete() {
+		ReactiveRepository<User> repository = new ReactiveUserRepository();
+		PublisherProbe<User> probe = PublisherProbe.of(repository.findAll());
+		Mono<Void> completion = workshop.fluxCompletion(probe.flux());
+		StepVerifier.create(completion)
+				.verifyComplete();
+		probe.assertWasRequested();
+	}
+
+
+	@Test
+	public void nullHanding(){
+		Mono<User> mono = workshop.nullAwareUserToMono(User.SKYLER);
+		StepVerifier.create(mono)
+				.expectNext(User.SKYLER)
+				.verifyComplete();
+		mono = workshop.nullAwareUserToMono(null);
+		StepVerifier.create(mono)
+				.verifyComplete();
+
+	}
+
+	@Test
+	public void emptyHanding(){
+		Mono<User> mono = workshop.emptyToSkyler(Mono.just(User.WALTER));
+		StepVerifier.create(mono)
+				.expectNext(User.WALTER)
+				.verifyComplete();
+
+		mono = workshop.emptyToSkyler(Mono.empty());
+		StepVerifier.create(mono)
+				.expectNext(User.SKYLER)
+				.verifyComplete();
+	}
+
+
+	@Test
+	public void collect(){
+		ReactiveRepository<User> repository = new ReactiveUserRepository();
+		Mono<List<User>> collection = workshop.fluxCollection(repository.findAll());
+		StepVerifier.create(collection)
+				.expectNext(Arrays.asList(User.SKYLER, User.JESSE, User.WALTER, User.SAUL))
+				.verifyComplete();
+
 	}
 
 

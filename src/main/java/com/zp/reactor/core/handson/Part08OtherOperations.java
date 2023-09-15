@@ -4,6 +4,8 @@ import com.zp.reactor.core.handson.domain.User;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 public class Part08OtherOperations {
 
     //========================================================================================
@@ -16,5 +18,28 @@ public class Part08OtherOperations {
     Mono<User> useFastestMono(Mono<User> mono1, Mono<User> mono2) {
         return Mono.first(mono1, mono2);
     }
+
+
+    Flux<User> useFastestFlux(Flux<User> flux1, Flux<User> flux2) {
+        return Flux.firstWithSignal(flux1, flux2);
+    }
+
+    Mono<Void> fluxCompletion(Flux<User> flux) {
+        return flux.then();
+    }
+
+    Mono<User> nullAwareUserToMono(User user) {
+        return Mono.justOrEmpty(user);
+    }
+
+    Mono<User> emptyToSkyler(Mono<User> mono) {
+        //return mono.defaultIfEmpty(User.SKYLER);
+        return mono.switchIfEmpty(Mono.just(User.SKYLER));
+    }
+
+    Mono<List<User>> fluxCollection(Flux<User> flux) {
+        return flux.collectList();
+    }
+
 
 }
