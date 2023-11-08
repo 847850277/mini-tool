@@ -1,7 +1,6 @@
 package com.zp.leetcode.package2023.september.september27;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
