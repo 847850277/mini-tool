@@ -17,7 +17,7 @@ public class ProxyHttpsServer {
     private int localPort ;
     private ServerSocket localServerSocket;
 
-    private boolean socksNeekLogin = true;//是否需要登录
+    private boolean socksNeekLogin = false;//是否需要登录
     private String username = "admin";
     private String password = "admin123";
 
