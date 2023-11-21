@@ -15,8 +15,8 @@ public class ProxyHttpsServerTest {
 
         //设置代理服务器的ip和端口
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 1080));
-        //String api = "https://www.baidu.com";
-        String api = "http://127.0.0.1:8002/helloWorld?name=123";
+        String api = "https://www.baidu.com";
+        //String api = "http://127.0.0.1:8002/helloWorld?name=123";
         HttpURLConnection connection = null;
         InputStream in = null;
         BufferedReader reader = null;
