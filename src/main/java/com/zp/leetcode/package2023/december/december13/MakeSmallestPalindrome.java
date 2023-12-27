@@ -8,6 +8,16 @@ public class MakeSmallestPalindrome {
         //String s = "seven";
         MakeSmallestPalindrome makeSmallestPalindrome = new MakeSmallestPalindrome();
         System.out.println(makeSmallestPalindrome.makeSmallestPalindrome(s));
+
+        int a = -1;
+        boolean flag = a > 0 ? true : false;
+
+        System.out.println(flag);
+
+        boolean b1 = true;
+        boolean b2 = false;
+        boolean b3 = b1 || b2;
+        System.out.println(b3);
     }
 
 
